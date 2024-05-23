@@ -1,0 +1,81 @@
+Q1. Count the number of ways to reach the top of the stairs:
+
+java
+Copy code
+public int countWays(int n, int m) {
+    int[] dp = new int[n + 1];
+    dp[0] = 1;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m && j <= i; j++) {
+            dp[i] += dp[i - j];
+        }
+    }
+    return dp[n];
+}
+Q2. Calculate the nth Tribonacci number:
+
+java
+Copy code
+public int tribonacci(int n) {
+    if (n == 0) return 0;
+    if (n == 1 || n == 2) return 1;
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    dp[2] = 1;
+    for (int i = 3; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+    }
+    return dp[n];
+}
+Q3. Rob maximum amount of money without alerting the police:
+
+java
+Copy code
+public int rob(int[] nums) {
+    int n = nums.length;
+    if (n == 0) return 0;
+    if (n == 1) return nums[0];
+    if (n == 2) return Math.max(nums[0], nums[1]);
+    int[] dp = new int[n];
+    dp[0] = nums[0];
+    dp[1] = Math.max(nums[0], nums[1]);
+    for (int i = 2; i < n; i++) {
+        dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+    }
+    return dp[n - 1];
+}
+Q4. Find the number of unique paths the robot can take:
+
+java
+Copy code
+public int uniquePaths(int m, int n) {
+    int[][] dp = new int[m][n];
+    for (int i = 0; i < m; i++) {
+        dp[i][0] = 1;
+    }
+    for (int j = 0; j < n; j++) {
+        dp[0][j] = 1;
+    }
+    for (int i = 1; i < m; i++) {
+        for (int j = 1; j < n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+    return dp[m - 1][n - 1];
+}
+Q5. Find the minimum path sum from top to bottom in a triangle array:
+
+java
+Copy code
+public int minimumTotal(List<List<Integer>> triangle) {
+    int n = triangle.size();
+    int[] dp = new int[n + 1];
+    for (int i = n - 1; i >= 0; i--) {
+        List<Integer> row = triangle.get(i);
+        for (int j = 0; j < row.size(); j++) {
+            dp[j] = row.get(j) + Math.min(dp[j], dp[j + 1]);
+        }
+    }
+    return dp[0];
+}
